@@ -9,11 +9,11 @@ package mygame;
  *
  * @author Kaleb
  */
-public class Charges {
+public class Charge {
     int damage;
     int bulletsLeft;
     
-    public Charges(int damage, int bulletsLeft){
+    public Charge(int damage, int bulletsLeft){
         this.damage = damage;
         this.bulletsLeft = bulletsLeft;
     }

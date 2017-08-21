@@ -18,7 +18,7 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.shape.Box;
 import java.util.ArrayList;
-import mygame.Charges;
+import mygame.Charge;
 
 /**
  *
@@ -30,15 +30,16 @@ public class GamePlayAppState extends AbstractAppState {
     private Node rootNode;
     private Node beamNode;
     private AssetManager assetManager;
-    Node playerNode = new Node();
-    Node towerNode = new Node();
-    Node creepNode = new Node();
+    private Node playerNode;
+    private Node towerNode;
+    private Node creepNode;
     private int level;
     private int score;
     private int health;
     private int budget;
-    boolean lastGameWon;
-    public ArrayList creepList = new ArrayList();
+    private boolean lastGameWon;
+    private ArrayList creepList;
+    private ArrayList chargeList;
     
     @Override
     public void update(float tpf) {}
@@ -58,12 +59,17 @@ public class GamePlayAppState extends AbstractAppState {
         this.rootNode = this.app.getRootNode();
         this.health = 10;
         this.creepList = new ArrayList();
-       
+        this.chargeList = new ArrayList();
+        this.beamNode = new Node("beamNode");
+        this.playerNode = new Node("playerNode");
+        this.towerNode = new Node("towerNode");
+        this.creepNode = new Node("creepNode");
         
         //attach the nodes
         rootNode.attachChild(playerNode);
         rootNode.attachChild(towerNode);
         rootNode.attachChild(creepNode);
+        rootNode.attachChild(beamNode);
         
         //make the player base
         Vector3f baseLocation = new Vector3f(0,0,0);
@@ -182,11 +188,14 @@ public class GamePlayAppState extends AbstractAppState {
     public ArrayList  makeCharges(int chargeNumber){
         ArrayList chargeList = new ArrayList();
         for (int i = 0; i < chargeNumber; i++){
-            chargeList.add(new Charges(5,2));
+            chargeList.add(new Charge(5,2));
         }
         return chargeList;
     }
     public ArrayList getCreepList(){
         return creepList;
+    }
+    public void addBeam(Geometry beam){
+        this.beamNode.attachChild(beam);
     }
 }
